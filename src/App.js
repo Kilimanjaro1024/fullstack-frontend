@@ -1,23 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from "react"
+import { Route, Link, Switch } from "react-router-dom";
+import Display from "./Display.js"
 
 function App() {
+  const url = "https://harrypottercm.herokuapp.com"
+
+  const [students, setStudents] = useState([])
+
+  const getStudents = () => {
+    fetch(url + "/students")
+      .then((response) => response.json())
+      .then((data) =>{
+        setStudents(data)
+      })
+  }
+  console.log(students)
+  React.useEffect(() => getStudents(), []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hogwarts Students</h1>
+      <main>
+        <Switch>
+          <Route exact path="/" render={(rp) => <Display {...rp} students={students}/>}/>
+        </Switch>
+      </main>
+      
     </div>
   );
 }
