@@ -23,7 +23,7 @@ function App() {
     lastName: "",
     year: 0,
     house: "",
-    wands: [{}]
+    wands: []
   }
 
   const handleCreate =(newStudent) => {
