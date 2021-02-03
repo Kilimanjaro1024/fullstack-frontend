@@ -17,6 +17,28 @@ function App() {
       })
   }
   console.log(students)
+
+  const emptyStudent = {
+    firstName: "",
+    lastName: "",
+    year: 0,
+    house: "",
+    wands: [{}]
+  }
+
+  const handleCreate =(newStudent) => {
+    fetch(url + "/students", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newStudent)
+    })
+    .then(() => {
+      getStudents()
+    })
+  }
+
   React.useEffect(() => getStudents(), []);
   return (
     <div className="App">
@@ -24,6 +46,14 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/" render={(rp) => <Display {...rp} students={students}/>}/>
+          <Route
+            exact
+            path="/create"
+            render={(rp) => (
+              <Form {...rp} label="create" student={emptyStudent} handleSubmit={handleCreate} />
+              
+            )}
+          />
         </Switch>
       </main>
       
