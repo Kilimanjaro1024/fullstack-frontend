@@ -19,6 +19,13 @@ const Display = (props) => {
                                 <h1>{wand.core}</h1>
                             </article>
                         ))}
+                        <button onClick={() => {
+                            props.selectStudent(student)
+                            props.history.push("/edit")
+                        }}>Edit Student</button>
+                        <button onClick={() => {
+                            props.deleteStudent(student)
+                        }}>Delete Student</button>
                     </article>
                 ))}
         </div>
